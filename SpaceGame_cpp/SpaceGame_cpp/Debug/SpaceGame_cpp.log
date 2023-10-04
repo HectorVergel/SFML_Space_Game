@@ -1,0 +1,6 @@
+﻿  Game.cpp
+  main.cpp
+  Player.cpp
+C:\Users\Hector\Desktop\SpaceGame_cpp\SpaceGame_cpp\Player.cpp(71,19): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  Generando código...
+  SpaceGame_cpp.vcxproj -> C:\Users\Hector\Desktop\SpaceGame_cpp\Debug\SpaceGame_cpp.exe
