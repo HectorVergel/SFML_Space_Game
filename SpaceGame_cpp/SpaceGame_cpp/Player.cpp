@@ -8,13 +8,8 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-
-	this->maxSpeed = 7.f;
-	this->minSpeed = 1.5f;
-	this->moveSpeed = this->minSpeed;
-
-	this->acceleration = 0.15f;
-	this->deceleration = 0.0;
+	this->initVariables();
+	
 }
 
 Player::~Player()
@@ -37,6 +32,18 @@ void Player::initSprite()
 	this->sprite.setPosition(50, 50);
 }
 
+void Player::initVariables()
+{
+	this->maxSpeed = 7.f;
+	this->minSpeed = 1.5f;
+	this->moveSpeed = this->minSpeed;
+
+	this->acceleration = 0.15f;
+	this->deceleration = 0.0;
+	this->maxFireRate = 10.f;
+	this->fireRate = this->maxFireRate;
+}
+
 void Player::update()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
@@ -50,7 +57,7 @@ void Player::update()
 			moveSpeed -= 0.15f;
 	}
 
-	
+	this->updateFireRate();
 		
 		
 	
@@ -60,6 +67,12 @@ void Player::render(sf::RenderTarget& renderTarget)
 {
 	renderTarget.draw(this->sprite);
 	
+}
+
+void Player::updateFireRate()
+{
+	if(this->fireRate < this->maxFireRate)
+		this->fireRate += 1.f;
 }
 
 void Player::move(sf::RenderWindow& window)
@@ -98,4 +111,32 @@ void Player::move(sf::RenderWindow& window)
 	
 	
 	
+}
+
+bool Player::canAttack()
+{
+	if (this->fireRate >= this->maxFireRate) 
+	{
+		this->fireRate = 0.f;
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+const sf::Vector2f Player::getPosition() const
+{
+	return this->sprite.getPosition();
+}
+
+const sf::Vector2f Player::getDirection() const
+{
+	return sf::Vector2f(normalizedDirectionX, normalizedDirectionY);
+}
+
+const float Player::getRotation() const
+{
+	return this->sprite.getRotation();
 }

@@ -2,17 +2,21 @@
 #include <iostream>
 
 
-Bullet::Bullet(float dirX, float dirY)
+Bullet::Bullet(sf::Texture* texture, float dirX, float dirY, float posX, float posY, float movementSpeed, float rotation)
 {
-	this->initTexture();
-	this->initSprite();
+		this->sprite.setTexture(*texture);
+	this->sprite.setPosition(posX, posY);
 
-	this->bulletSpeed = 5.f;
+	this->bulletSpeed = movementSpeed;
 	this->dirX = dirX;
 	this->dirY = dirY;
+	this->direction.x = dirX;
+	this->direction.y = dirY;
+	this->sprite.setRotation(rotation);
 
 	this->move();
 
+	
 }
 
 Bullet::~Bullet()
@@ -20,31 +24,23 @@ Bullet::~Bullet()
 
 }
 
-void Bullet::initSprite()
-{
-	this->sprite.setTexture(this->texture);
-	this->sprite.setScale(2.f, 2.f);
-	this->sprite.setOrigin((sf::Vector2f)this->texture.getSize() / 2.f);
-}
 
-void Bullet::initTexture()
+void Bullet::render(sf::RenderTarget* renderTarget)
 {
-	if (!this->texture.loadFromFile("Art/Bullet.png"))
-		std::cout << "BULLET.CPP/TEXTURE NOT FOUND" << std::endl;
-
-}
-
-void Bullet::render(sf::RenderTarget& renderTarget)
-{
-	renderTarget.draw(this->sprite);
+	renderTarget->draw(this->sprite);
 }
 
 void Bullet::update()
 {
-	
+	this->move();
 }
 
 void Bullet::move()
 {
-	this->sprite.move(this->dirX * this->bulletSpeed, this->dirY * this->bulletSpeed);
+	this->sprite.move(this->bulletSpeed * this->direction);
+}
+
+const sf::FloatRect Bullet::getBounds() const
+{
+	return this->sprite.getGlobalBounds();
 }

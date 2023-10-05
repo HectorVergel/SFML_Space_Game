@@ -24,11 +24,14 @@ private:
 
 	float normalizedDirectionX;
 	float normalizedDirectionY;
+	float fireRate;
+	float maxFireRate;
 
 	//private functions
 
 	void initTexture();
 	void initSprite();
+	void initVariables();
 
 
 public:
@@ -38,8 +41,12 @@ public:
 	//Functions
 	void update();
 	void render(sf::RenderTarget& renderTarget);
-
+	void updateFireRate();
 	void move(sf::RenderWindow& window);
-
+	
+	bool canAttack();
+	const sf::Vector2f getPosition() const;
+	const sf::Vector2f getDirection() const;
+	const float getRotation() const;
 };
 

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include <vector>
+#include <map>
 
 using namespace std;
 class Game
@@ -14,10 +15,16 @@ private:
 	void initVariables();
 	void initWindow();
 
-	
+	std::vector<Bullet*> bullets;
+	std::map<std::string, sf::Texture*> textures;
+
 	Player* player;
 	void initBullets();
 	void initPlayer();
+	void initTextures();
+
+	void updateInput();
+	void updateBullets();
 
 public:
 	Game();

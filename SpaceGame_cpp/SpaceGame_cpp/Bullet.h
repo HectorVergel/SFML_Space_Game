@@ -13,19 +13,18 @@ private:
 	float dirX;
 	float dirY;
 
-	sf::Texture texture;
-
-	void initSprite();
-	void initTexture();
-	
-public:
 	sf::Sprite sprite;
-	Bullet(float dirX, float dirY);
+	sf::Vector2f direction;
+
+public:
+	Bullet(sf::Texture* texture, float dirX, float dirY, float posX, float posY, float movementSpeed, float rotation);
 	virtual ~Bullet();
 
-	void render(sf::RenderTarget& renderTarget);
+	void render(sf::RenderTarget* renderTarget);
 	void update();
 
 	void move();
+
+	const sf::FloatRect getBounds() const;
 };
 
