@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <vector>
+#include <random>
 
 using namespace std;
 
@@ -8,6 +9,10 @@ using namespace std;
 void Game::initVariables()
 {
 	this->window = nullptr;
+	this->asteroidSpawnRate = 2.f;
+	this->maxScoreTimer = 15.f;
+	this->scoreTimer = 0.f;
+	this->currentTime = this->asteroidSpawnRate;
 }
 
 void Game::initWindow()
@@ -31,6 +36,46 @@ void Game::initTextures()
 {
 	this->textures["BULLET"] = new sf::Texture();
 	this->textures["BULLET"]->loadFromFile("Art/Bullet.png");
+
+	this->textures["ASTEROID1"] = new sf::Texture();
+	this->textures["ASTEROID1"]->loadFromFile("Art/Asteroid_1.png");
+	
+	this->textures["ASTEROID2"] = new sf::Texture();
+	this->textures["ASTEROID2"]->loadFromFile("Art/Asteroid_2.png");
+
+	this->textures["PLAYER_GUI"] = new sf::Texture();
+	this->textures["PLAYER_GUI"]->loadFromFile("Art/Player_UI.png");
+
+	this->textures["HEART"] = new sf::Texture();
+	this->textures["HEART"]->loadFromFile("Art/Heart.png");
+}
+
+void Game::initGUI()
+{
+	//Player photo
+	this->playerGUI.setTexture(*this->textures["PLAYER_GUI"]);
+	this->playerGUI.setPosition(15, 15);
+	this->playerGUI.setScale(3, 3);
+
+
+	//Score
+	this->score = 0;
+	if(!this->font.loadFromFile("Art/8-BIT.ttf"))
+	{
+		std::cout << "FONT NOT FOUND" << std::endl;
+	}
+	this->scoreGUI.setFont(this->font);
+	this->scoreGUI.setString("SCORE  0");
+	this->scoreGUI.setPosition(70, 20);
+	this->scoreGUI.setFillColor(sf::Color::White);
+	this->scoreGUI.setScale(0.5, 0.5);
+
+	//player remaining lifes
+	this->heart.setTexture(*this->textures["HEART"]);
+	this->heart.setPosition(70, 40);
+	this->heart.setScale(2, 2);
+	this->playerLifes.push_back(this->heart);
+	
 }
 
 void Game::updateInput()
@@ -57,7 +102,11 @@ void Game::updateBullets()
 		bullet->update();
 
 		//bullet culling 
-		if(bullet->getBounds().top + bullet->getBounds().height < 0.f )
+		
+		if(bullet->getBounds().top + bullet->getBounds().height < 0.f ||
+			bullet->getBounds().top > this->window->getSize().y ||
+			bullet->getBounds().left + bullet->getBounds().width < 0.f ||
+			bullet->getBounds().left > this->window->getSize().x)
 		{
 			//delete bullet
 			delete this->bullets.at(counter);
@@ -69,14 +118,68 @@ void Game::updateBullets()
 	}
 }
 
+void Game::updateAsteroids()
+{	
+	std::random_device rd;  // Obtain a random seed from the hardware
+	std::mt19937 gen(rd()); // Seed the Mersenne Twister generator
+	std::uniform_real_distribution<double> distribution(-1.0, 1.0); //random direction
+	std::uniform_real_distribution<double> down(.5, 1.0);
+	std::uniform_real_distribution<double> top(-1, -0.5);
+	std::uniform_real_distribution<double> spawnRandomPosTop(50,750); //random spawn pos
+
+
+	if(this->currentTime < this->asteroidSpawnRate)
+		this->currentTime += 0.005;
+
+	if (this->currentTime >= this->asteroidSpawnRate) 
+	{
+		this->currentTime = 0.f;
+		this->asteroids.push_back(new Asteroid(this->textures["ASTEROID1"], distribution(gen), down(gen), spawnRandomPosTop(gen), -50, 0.5f, 45.f));
+		this->asteroids.push_back(new Asteroid(this->textures["ASTEROID1"], distribution(gen), top(gen), spawnRandomPosTop(gen), 600, 0.5f, 90.f));
+	}
+
+
+	for (auto* asteroid : this->asteroids)
+	{
+		asteroid->update();
+	}
+}
+
+void Game::updateScore()
+{
+	if(this->scoreTimer < this->maxScoreTimer)
+		this->scoreTimer += 0.1f;
+	
+	if(this->scoreTimer >= this->maxScoreTimer)
+	{
+		this->scoreTimer = 0.f;
+		this->score += 1;
+		std::string myScore = std::to_string(this->score);
+		this->scoreGUI.setString("SCORE  " + myScore);
+	}
+}
+
+void Game::renderGUI()
+{
+	this->window->draw(this->playerGUI);
+	this->window->draw(this->scoreGUI);
+	
+	for (auto _heart : this->playerLifes)
+	{
+		this->window->draw(_heart);
+	}
+}
+
 
 
 //constructor and destructor
 Game::Game()
 {
+	this->initTextures();
+	this->initVariables();
 	this->initWindow();
 	this->initPlayer();
-	this->initTextures();
+	this->initGUI();
 }
 
 Game::~Game()
@@ -91,6 +194,11 @@ Game::~Game()
 
 
 	for(auto *i : this->bullets)
+	{
+		delete i;
+	}
+
+	for (auto* i : this->asteroids)
 	{
 		delete i;
 	}
@@ -125,6 +233,12 @@ void Game::update()
 	this->updateBullets();
 
 	this->player->update();
+	
+	this->updateScore();
+
+	std::cout << this->score << std::endl;
+
+	this->updateAsteroids();
 
 	
 }
@@ -144,6 +258,12 @@ void Game::render()
 		bullet->render(this->window);
 	}
 
+	for (auto* asteroid : this->asteroids)
+	{
+		asteroid->render(this->window);
+	}
+
+	this->renderGUI();
 	//display the frame
 	this->window->display();
 }

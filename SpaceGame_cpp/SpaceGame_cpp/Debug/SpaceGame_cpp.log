@@ -1,2 +1,9 @@
-﻿  Bullet.cpp
+﻿  Game.cpp
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(132,29): warning C4305: '+=': truncamiento de 'double' a 'float'
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(137,118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(137,94): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(137,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(138,117): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(138,93): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(138,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
   SpaceGame_cpp.vcxproj -> C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\Debug\SpaceGame_cpp.exe

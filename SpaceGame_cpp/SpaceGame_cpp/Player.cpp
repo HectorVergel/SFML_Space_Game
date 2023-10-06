@@ -29,7 +29,7 @@ void Player::initSprite()
 	this->sprite.setTexture(this->texture);
 	this->sprite.setScale(2.f, 2.f);
 	this->sprite.setOrigin((sf::Vector2f)this->texture.getSize() / 2.f);
-	this->sprite.setPosition(50, 50);
+	this->sprite.setPosition(400, 300);
 }
 
 void Player::initVariables()

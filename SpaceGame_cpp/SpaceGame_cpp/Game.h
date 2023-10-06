@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player.h"
+#include "Asteroid.h"
 #include "Bullet.h"
 #include <vector>
 #include <map>
@@ -15,16 +16,39 @@ private:
 	void initVariables();
 	void initWindow();
 
-	std::vector<Bullet*> bullets;
 	std::map<std::string, sf::Texture*> textures;
+	float asteroidSpawnRate;
+	float currentTime;
 
+	//GameObjects
+	
+	std::vector<Bullet*> bullets;
 	Player* player;
+	std::vector<Asteroid*> asteroids;
+
+	sf::Sprite playerGUI;
+	std::vector<sf::Sprite> playerLifes;
+	sf::Sprite heart;
+	sf::Text scoreGUI;
+	sf::Font font;
+	int score;
+	float scoreTimer;
+	float maxScoreTimer;
+	
+	//private functions
+	
+
 	void initBullets();
 	void initPlayer();
 	void initTextures();
+	void initGUI();
 
 	void updateInput();
 	void updateBullets();
+	void updateAsteroids();
+	void updateScore();
+
+	void renderGUI();
 
 public:
 	Game();
