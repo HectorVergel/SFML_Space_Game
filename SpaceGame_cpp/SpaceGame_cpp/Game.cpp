@@ -9,7 +9,7 @@ using namespace std;
 void Game::initVariables()
 {
 	this->window = nullptr;
-	this->asteroidSpawnRate = 2.f;
+	this->asteroidSpawnRate = 1.f;
 	this->maxScoreTimer = 15.f;
 	this->scoreTimer = 0.f;
 	this->currentTime = this->asteroidSpawnRate;
@@ -116,6 +116,8 @@ void Game::updateBullets()
 
 		++counter;
 	}
+
+	
 }
 
 void Game::updateAsteroids()
@@ -138,10 +140,36 @@ void Game::updateAsteroids()
 		this->asteroids.push_back(new Asteroid(this->textures["ASTEROID1"], distribution(gen), top(gen), spawnRandomPosTop(gen), 600, 0.5f, 90.f));
 	}
 
-
-	for (auto* asteroid : this->asteroids)
+	for (int i = 0; i < asteroids.size(); i++)
 	{
-		asteroid->update();
+		this->asteroids[i]->update();
+
+	}
+
+	
+}
+
+void Game::updateCombat()
+{
+	for (int i = 0; i < asteroids.size(); i++)
+	{
+		bool asteroidDeleted = false;
+
+		for (int k = 0; k < bullets.size() && asteroidDeleted == false; k++)
+		{
+			if (this->bullets[k]->getBounds().intersects(this->asteroids[i]->getAsteroidBounds()))
+			{
+				delete this->bullets[k];
+				this->bullets.erase(this->bullets.begin() + k);
+
+				delete this->asteroids[i];
+				this->asteroids.erase(this->asteroids.begin() + i);
+
+				asteroidDeleted = true;
+				this->score += 100;
+			}
+
+		}
 	}
 }
 
@@ -154,9 +182,9 @@ void Game::updateScore()
 	{
 		this->scoreTimer = 0.f;
 		this->score += 1;
+	}
 		std::string myScore = std::to_string(this->score);
 		this->scoreGUI.setString("SCORE  " + myScore);
-	}
 }
 
 void Game::renderGUI()
@@ -234,13 +262,14 @@ void Game::update()
 
 	this->player->update();
 	
-	this->updateScore();
 
 	std::cout << this->score << std::endl;
 
 	this->updateAsteroids();
 
+	this->updateCombat();
 	
+	this->updateScore();
 }
 
 

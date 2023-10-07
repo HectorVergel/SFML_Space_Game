@@ -23,6 +23,7 @@ private:
 	//GameObjects
 	
 	std::vector<Bullet*> bullets;
+	std::vector<Bullet*> bulletsToDelete;
 	Player* player;
 	std::vector<Asteroid*> asteroids;
 
@@ -46,6 +47,7 @@ private:
 	void updateInput();
 	void updateBullets();
 	void updateAsteroids();
+	void updateCombat();
 	void updateScore();
 
 	void renderGUI();

@@ -22,5 +22,6 @@ public:
 	void update();
 	void render(sf::RenderTarget* renderTarget);
 	
+	const sf::FloatRect getAsteroidBounds() const;
 };
 

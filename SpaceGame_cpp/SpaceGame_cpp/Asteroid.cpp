@@ -33,3 +33,8 @@ void Asteroid::render(sf::RenderTarget* renderTarget)
 {
 	renderTarget->draw(this->sprite);
 }
+
+const sf::FloatRect Asteroid::getAsteroidBounds() const
+{
+	return this->sprite.getGlobalBounds();
+}
