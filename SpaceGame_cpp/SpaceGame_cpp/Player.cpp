@@ -140,3 +140,15 @@ const float Player::getRotation() const
 {
 	return this->sprite.getRotation();
 }
+
+const sf::FloatRect Player::getBounds() const
+{
+	return this->sprite.getGlobalBounds();
+}
+
+void Player::setPosition(float x, float y)
+{
+	this->sprite.setPosition(x, y);
+}
+
+

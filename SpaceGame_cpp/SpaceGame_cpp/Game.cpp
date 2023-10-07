@@ -13,6 +13,7 @@ void Game::initVariables()
 	this->maxScoreTimer = 15.f;
 	this->scoreTimer = 0.f;
 	this->currentTime = this->asteroidSpawnRate;
+	this->gameOver = false;
 }
 
 void Game::initWindow()
@@ -76,6 +77,11 @@ void Game::initGUI()
 	this->heart.setScale(2, 2);
 	this->playerLifes.push_back(this->heart);
 	
+	//Game over gui
+	this->gameOverGUI.setFont(this->font);
+	this->gameOverGUI.setString("GAME OVER");
+	this->gameOverGUI.setPosition(280, 250);
+	this->gameOverGUI.setFillColor(sf::Color::White);
 }
 
 void Game::updateInput()
@@ -168,8 +174,10 @@ void Game::updateCombat()
 				asteroidDeleted = true;
 				this->score += 100;
 			}
+			
 
 		}
+
 	}
 }
 
@@ -178,7 +186,7 @@ void Game::updateScore()
 	if(this->scoreTimer < this->maxScoreTimer)
 		this->scoreTimer += 0.1f;
 	
-	if(this->scoreTimer >= this->maxScoreTimer)
+	if(this->scoreTimer >= this->maxScoreTimer && !this->gameOver)
 	{
 		this->scoreTimer = 0.f;
 		this->score += 1;
@@ -196,6 +204,18 @@ void Game::renderGUI()
 	{
 		this->window->draw(_heart);
 	}
+
+	if(this->gameOver)
+	{
+		this->window->draw(this->gameOverGUI);
+	}
+}
+
+void Game::restartGame()
+{
+	this->score = 0;
+	this->player->setPosition(400, 300);
+	this->gameOver = false;
 }
 
 
@@ -238,7 +258,18 @@ void Game::run()
 {
 	while (this->window->isOpen()) 
 	{
-		this->update();
+		if(!this->gameOver)
+		{
+			this->update();
+		}
+		else 
+		{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
+			{
+				this->restartGame();
+			}
+		}
+			
 		this->render();
 	}
 }

@@ -1,12 +1,12 @@
 ﻿  Game.cpp
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(134,29): warning C4305: '+=': truncamiento de 'double' a 'float'
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(139,118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(139,94): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(139,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(140,117): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(140,93): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(140,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(143,20): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(154,20): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(158,21): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(140,29): warning C4305: '+=': truncamiento de 'double' a 'float'
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(145,118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(145,94): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(145,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(146,117): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(146,93): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(146,83): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(149,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(160,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\SpaceGame_cpp\Game.cpp(164,21): warning C4018: '<': no coinciden signed/unsigned
   SpaceGame_cpp.vcxproj -> C:\Users\Hector\Documents\GitHub\SFML_Space_Game\SpaceGame_cpp\Debug\SpaceGame_cpp.exe

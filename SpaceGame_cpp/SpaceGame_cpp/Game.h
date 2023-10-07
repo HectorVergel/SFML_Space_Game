@@ -31,10 +31,13 @@ private:
 	std::vector<sf::Sprite> playerLifes;
 	sf::Sprite heart;
 	sf::Text scoreGUI;
+	sf::Text gameOverGUI;
 	sf::Font font;
 	int score;
+
 	float scoreTimer;
 	float maxScoreTimer;
+	bool gameOver;
 	
 	//private functions
 	
@@ -51,6 +54,8 @@ private:
 	void updateScore();
 
 	void renderGUI();
+
+	void restartGame();
 
 public:
 	Game();
