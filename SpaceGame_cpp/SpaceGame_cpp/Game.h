@@ -26,18 +26,22 @@ private:
 	std::vector<Bullet*> bulletsToDelete;
 	Player* player;
 	std::vector<Asteroid*> asteroids;
-
+	//private variables
 	sf::Sprite playerGUI;
 	std::vector<sf::Sprite> playerLifes;
 	sf::Sprite heart;
 	sf::Text scoreGUI;
 	sf::Text gameOverGUI;
+	sf::Text gameOverScoreGUI;
 	sf::Font font;
 	int score;
 
 	float scoreTimer;
 	float maxScoreTimer;
 	bool gameOver;
+
+	float windowHeight;
+	float windowWidth;
 	
 	//private functions
 	

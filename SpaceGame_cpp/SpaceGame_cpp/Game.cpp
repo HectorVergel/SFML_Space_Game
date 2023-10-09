@@ -9,16 +9,20 @@ using namespace std;
 void Game::initVariables()
 {
 	this->window = nullptr;
+	this->windowWidth = 800;
+	this->windowHeight = 600;
+
 	this->asteroidSpawnRate = 1.f;
 	this->maxScoreTimer = 15.f;
 	this->scoreTimer = 0.f;
 	this->currentTime = this->asteroidSpawnRate;
 	this->gameOver = false;
+
 }
 
 void Game::initWindow()
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "SpaceShip_Game");
+	this->window = new sf::RenderWindow(sf::VideoMode(this->windowWidth, this->windowHeight), "SpaceShip_Game");
 	this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
 }
@@ -80,8 +84,19 @@ void Game::initGUI()
 	//Game over gui
 	this->gameOverGUI.setFont(this->font);
 	this->gameOverGUI.setString("GAME OVER");
-	this->gameOverGUI.setPosition(280, 250);
-	this->gameOverGUI.setFillColor(sf::Color::White);
+	this->gameOverGUI.setOrigin(this->gameOverGUI.getGlobalBounds().left + this->gameOverGUI.getGlobalBounds().width / 2.f,
+		this->gameOverGUI.getGlobalBounds().top + this->gameOverGUI.getGlobalBounds().height / 2.f);
+	this->gameOverGUI.setPosition(this->windowWidth / 2.f, this->windowHeight / 2.f);
+	this->gameOverGUI.setFillColor(sf::Color::Red);
+
+	//Game over score
+	this->gameOverScoreGUI.setFont(this->font);
+
+	this->gameOverScoreGUI.setOrigin(this->gameOverScoreGUI.getGlobalBounds().left + this->gameOverScoreGUI.getGlobalBounds().width / 2.f,
+		this->gameOverScoreGUI.getGlobalBounds().top + this->gameOverScoreGUI.getGlobalBounds().height / 2.f);
+	this->gameOverScoreGUI.setPosition(this->windowWidth / 2.f, this->windowHeight / 2.f + 15);
+	this->gameOverScoreGUI.setScale(.5f, .5f);
+	this->gameOverScoreGUI.setFillColor(sf::Color::Yellow);
 }
 
 void Game::updateInput()
@@ -136,6 +151,7 @@ void Game::updateAsteroids()
 	std::uniform_real_distribution<double> spawnRandomPosTop(50,750); //random spawn pos
 
 
+	//Spawning asteroids 
 	if(this->currentTime < this->asteroidSpawnRate)
 		this->currentTime += 0.005;
 
@@ -146,6 +162,7 @@ void Game::updateAsteroids()
 		this->asteroids.push_back(new Asteroid(this->textures["ASTEROID1"], distribution(gen), top(gen), spawnRandomPosTop(gen), 600, 0.5f, 90.f));
 	}
 
+	//Updating asteroids
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		this->asteroids[i]->update();
@@ -157,6 +174,7 @@ void Game::updateAsteroids()
 
 void Game::updateCombat()
 {
+	//Manage asteroids collision with bullets
 	for (int i = 0; i < asteroids.size(); i++)
 	{
 		bool asteroidDeleted = false;
@@ -174,11 +192,20 @@ void Game::updateCombat()
 				asteroidDeleted = true;
 				this->score += 100;
 			}
-			
 
 		}
 
 	}
+
+	//Manage player collision with asteroids
+	for (int i = asteroids.size() - 1; i >= 0; i--)
+	{
+		if(this->player->getBounds().intersects(asteroids[i]->getAsteroidBounds()))
+		{
+			this->gameOver = true;
+		}
+	}
+
 }
 
 void Game::updateScore()
@@ -208,14 +235,23 @@ void Game::renderGUI()
 	if(this->gameOver)
 	{
 		this->window->draw(this->gameOverGUI);
+
+		std::string myScore = std::to_string(this->score);
+		this->gameOverScoreGUI.setString("YOUR SCORE " + myScore);
+
+		this->window->draw(this->gameOverScoreGUI);
 	}
 }
 
 void Game::restartGame()
 {
+	//set default values
 	this->score = 0;
 	this->player->setPosition(400, 300);
 	this->gameOver = false;
+
+	//delete all asteroids
+	asteroids.clear();
 }
 
 
