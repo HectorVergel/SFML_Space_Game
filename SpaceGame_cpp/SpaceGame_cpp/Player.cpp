@@ -46,6 +46,7 @@ void Player::initVariables()
 
 void Player::update()
 {
+	//Acceleration when right click pressed
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 		
 		if(this->moveSpeed < 7.f)

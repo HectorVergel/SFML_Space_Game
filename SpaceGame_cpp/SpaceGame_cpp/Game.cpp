@@ -143,6 +143,7 @@ void Game::updateBullets()
 
 void Game::updateAsteroids()
 {	
+	//Generate the random numbers to spawn asteroids
 	std::random_device rd;  // Obtain a random seed from the hardware
 	std::mt19937 gen(rd()); // Seed the Mersenne Twister generator
 	std::uniform_real_distribution<double> distribution(-1.0, 1.0); //random direction
@@ -210,6 +211,7 @@ void Game::updateCombat()
 
 void Game::updateScore()
 {
+	//We add score just by surviving
 	if(this->scoreTimer < this->maxScoreTimer)
 		this->scoreTimer += 0.1f;
 	
